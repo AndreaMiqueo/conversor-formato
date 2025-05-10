@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1>Conversor de Formatos</h1>
+    <h1>Convierte fácilmente entre XML, JSON con este conversor online gratuito.</h1>
 
     <div class="controls">
       <label>Formato de entrada:</label>
@@ -22,7 +22,11 @@
 
     <textarea v-model="inputText" placeholder="Pegá aquí tu contenido de entrada" rows="10"></textarea>
 
-    <button @click="convert">Convertir</button>
+    <div class="buttons">
+      <button @click="convert">Convertir</button>
+      <button @click="limpiar">Limpiar</button>
+    </div>
+
 
     <textarea v-model="outputText" readonly placeholder="Resultado de salida" rows="10"></textarea>
   </div>
@@ -49,6 +53,19 @@ const inputText = ref('');
 const outputText = ref('');
 const inputFormat = ref('json');
 const outputFormat = ref('xml');
+
+function limpiar() {
+  inputText.value = '';
+  outputText.value = '';
+  
+  // También limpiamos el XML a cURL si querés
+  const xmlCurlInput = document.getElementById('xmlCurlInput');
+  const curlOutput = document.getElementById('curlOutput');
+
+  if (xmlCurlInput) xmlCurlInput.value = '';
+  if (curlOutput) curlOutput.value = '';
+}
+
 
 // Opciones para reconocer arrays en XML
 const parserOptions = {
@@ -250,6 +267,13 @@ textarea {
 select {
   padding: 6px;
 }
+.buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
 button {
   padding: 10px 20px;
   margin-bottom: 10px;
@@ -262,4 +286,5 @@ button {
 button:hover {
   background-color: #1a75d1;
 }
+
 </style>
